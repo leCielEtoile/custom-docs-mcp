@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "custom-docs-mcp"
+version = "0.1.0"
+description = "MCP server that ingests Git-hosted documentation and enables semantic search"
+readme = "README.md"
+license = { text = "BSD-3-Clause" }
+requires-python = ">=3.11"
+keywords = ["mcp", "documentation", "search", "llm", "rag", "claude"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "fastmcp==3.3.1",
+    "httpx==0.28.1",
+    "pyyaml==6.0.3",
+    "apscheduler==3.11.2",
+    "tiktoken==0.13.0",
+    "openai==2.38.0",
+    "sqlite-vec==0.1.9",
+    "docutils==0.23",
+]
+
+[project.optional-dependencies]
+local = [
+    "sentence-transformers==5.5.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/leCielEtoile/custom-docs-mcp"
+Repository = "https://github.com/leCielEtoile/custom-docs-mcp"
+Issues = "https://github.com/leCielEtoile/custom-docs-mcp/issues"
+
+[project.scripts]
+docs-mcp = "docs_mcp.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/docs_mcp"]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'darwin'",
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "sys_platform == 'win32'",
+]

@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "docs-mcp-openai": {
+      "command": "uv",
+      "args": ["run", "docs-mcp"]
+    },
+    "docs-mcp-local": {
+      "command": "uv",
+      "args": ["run", "--extra", "local", "docs-mcp"],
+      "env": {
+        "DOCS_MCP_PROVIDER": "local",
+        "DOCS_MCP_MODEL": "all-MiniLM-L6-v2"
+      }
+    }
+  }
+}

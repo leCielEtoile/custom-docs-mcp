@@ -1,0 +1,28 @@
+# 環境固有設定（.mcp.json.example をコピーして作成）
+.mcp.json
+
+# 実際の設定ファイル（config.example.yaml を参考に作成）
+config.yaml
+
+# インデックスDB
+*.db
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+dist/
+*.egg-info/
+
+# mise（ローカル用ツール定義は残す）
+# mise.toml はコミットしてよい
+
+# 環境変数
+.env
+
+# 起動ログ
+startup_out.txt
+startup_err.txt
+
+# Claude Code ローカル設定
+.claude/settings.local.json

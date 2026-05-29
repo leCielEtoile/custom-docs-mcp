@@ -1,0 +1,52 @@
+sources:
+  - id: react
+    description: "React official documentation (v18+). Covers hooks, components, and API references."
+    url: https://github.com/reactjs/react.dev
+    branch: main
+    paths:
+      - src/content/
+    extensions:
+      - .md
+      - .mdx
+
+  - id: fastapi
+    # description is optional — auto-generated from url and paths when omitted
+    url: https://github.com/tiangolo/fastapi
+    branch: master
+    paths:
+      - docs/en/docs/
+    extensions:
+      - .md
+
+  - id: private-docs
+    description: "Internal API documentation."
+    url: https://github.com/my-org/my-private-repo
+    branch: main
+    paths:
+      - docs/
+    token: ${GITHUB_TOKEN}
+
+# Cron schedule for periodic re-ingestion (standard 5-field cron)
+schedule: "0 2 * * *"  # daily at 02:00
+
+# Embedding provider: openai or local
+embedding:
+  provider: openai
+  model: text-embedding-3-small
+  # For local (requires: uv add docs-mcp[local]):
+  # provider: local
+  # model: all-MiniLM-L6-v2
+
+# Transport: stdio (default) or http
+transport:
+  mode: stdio
+  # For HTTP mode:
+  # mode: http
+  # host: 0.0.0.0
+  # port: 8000
+
+# SQLite database path (~ is expanded)
+db_path: ~/.docs-mcp/index.db
+
+# Maximum tokens per chunk before overflow split
+chunk_max_tokens: 512
