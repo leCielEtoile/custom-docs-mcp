@@ -18,12 +18,15 @@ Python 環境がある場合はパッケージとして利用できます。
 
 ```bash
 # インストール不要で直接実行（推奨）
-uvx docs-mcp --config /path/to/config.yaml
+uvx --from custom-docs-mcp docs-mcp
 
 # または pip でインストール
-pip install docs-mcp
-docs-mcp --config /path/to/config.yaml
+pip install custom-docs-mcp
+docs-mcp
 ```
+
+初回起動時に `~/.docs-mcp/config.yaml` がテンプレートから自動生成されます。
+ファイルを編集してドキュメントソースを追加してください（[設定ガイド](configuration.md) 参照）。
 
 Claude Desktop / Claude Code への登録方法は [usage.md](usage.md) を参照してください。
 

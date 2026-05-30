@@ -1,4 +1,5 @@
 from __future__ import annotations
+import logging
 import os
 import re
 from dataclasses import dataclass, field
@@ -7,7 +8,27 @@ from typing import Any, Literal
 
 import yaml
 
-_DB_BASE = "~/.docs-mcp"
+logger = logging.getLogger(__name__)
+
+_DOCS_MCP_DIR = Path("~/.docs-mcp")
+_DB_BASE = str(_DOCS_MCP_DIR)
+DEFAULT_CONFIG_PATH = _DOCS_MCP_DIR.expanduser() / "config.yaml"
+
+_DEFAULT_CONFIG_TEMPLATE = """\
+# docs-mcp configuration — add your documentation sources below.
+# Full reference: https://github.com/leCielEtoile/custom-docs-mcp/blob/main/config.example.yaml
+
+sources: []
+  # - id: my-docs
+  #   url: https://github.com/my-org/my-repo
+  #   branch: main
+  #   paths:
+  #     - docs/
+  #   extensions:
+  #     - .md
+
+schedule: "0 2 * * *"
+"""
 
 
 @dataclass
@@ -64,6 +85,18 @@ class Config:
 def derive_db_path(provider: str, model: str) -> str:
     slug = re.sub(r"[^a-z0-9]+", "-", model.lower()).strip("-")
     return f"{_DB_BASE}/index-{provider}-{slug}.db"
+
+
+def ensure_default_config() -> None:
+    """Create ~/.docs-mcp/config.yaml from a minimal template if it does not exist."""
+    if DEFAULT_CONFIG_PATH.exists():
+        return
+    DEFAULT_CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+    DEFAULT_CONFIG_PATH.write_text(_DEFAULT_CONFIG_TEMPLATE, encoding="utf-8")
+    logger.info(
+        "Created default config at %s — edit it to add your documentation sources.",
+        DEFAULT_CONFIG_PATH,
+    )
 
 
 def load_config(path: str | Path) -> Config:

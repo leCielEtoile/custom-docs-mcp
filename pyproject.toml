@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "custom-docs-mcp"
-version = "0.1.1"
+version = "0.1.2"
 description = "MCP server that ingests Git-hosted documentation and enables semantic search"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }

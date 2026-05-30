@@ -2,7 +2,7 @@
   "manifest_version": "0.4",
   "name": "docs-mcp",
   "display_name": "Docs MCP",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Search official documentation from any Git repository. Ingests Markdown/MDX/RST files and answers questions using hybrid semantic + full-text search.",
   "author": {
     "name": "leCielEtoile",

@@ -5,7 +5,7 @@ import os
 from typing import Literal, cast
 
 from .app import build_app
-from .config import load_config
+from .config import DEFAULT_CONFIG_PATH, ensure_default_config, load_config
 
 logging.basicConfig(
     level=logging.INFO,
@@ -16,7 +16,11 @@ logger = logging.getLogger(__name__)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="docs-mcp: Documentation MCP server")
-    parser.add_argument("--config", default="config.yaml", help="Path to config YAML")
+    parser.add_argument(
+        "--config",
+        default=None,
+        help=f"Path to config YAML (default: {DEFAULT_CONFIG_PATH})",
+    )
     parser.add_argument(
         "--provider",
         choices=["openai", "local"],
@@ -28,7 +32,10 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    config = load_config(args.config)
+    config_path = args.config or str(DEFAULT_CONFIG_PATH)
+    if args.config is None:
+        ensure_default_config()
+    config = load_config(config_path)
 
     # Priority: CLI arg > env var > config file
     provider_override = args.provider or os.environ.get("DOCS_MCP_PROVIDER")
@@ -38,6 +45,7 @@ def main() -> None:
     if model_override:
         config.embedding.model = model_override
 
+    logger.info("Using config: %s", config_path)
     logger.info("Using DB: %s", config.resolved_db_path())
 
     mcp = build_app(config)
