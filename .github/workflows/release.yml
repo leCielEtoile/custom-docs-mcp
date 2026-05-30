@@ -52,6 +52,7 @@ jobs:
         run: |
           zip -r "docs-mcp-${VERSION}.dxt" \
             manifest.json \
+            server/main.py \
             config.example.yaml \
             README.md \
             LICENSE

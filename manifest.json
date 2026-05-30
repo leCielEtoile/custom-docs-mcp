@@ -1,14 +1,17 @@
 {
-  "manifest_version": "0.3",
+  "manifest_version": "0.4",
   "name": "docs-mcp",
   "display_name": "Docs MCP",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Search official documentation from any Git repository. Ingests Markdown/MDX/RST files and answers questions using hybrid semantic + full-text search.",
   "author": {
     "name": "masho1106",
     "url": "https://github.com/masho1106"
   },
-  "repository": "https://github.com/leCielEtoile/custom-docs-mcp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leCielEtoile/custom-docs-mcp"
+  },
   "license": "BSD-3-Clause",
   "keywords": ["documentation", "search", "rag", "mcp"],
   "tools": [
@@ -26,21 +29,18 @@
     }
   ],
   "server": {
-    "type": "python",
+    "type": "uv",
+    "entry_point": "server/main.py",
     "mcp_config": {
       "command": "uvx",
       "args": [
+        "--from", "custom-docs-mcp",
         "docs-mcp",
         "--config",
         "${user_config.config_path}"
       ],
       "env": {
         "OPENAI_API_KEY": "${user_config.openai_api_key}"
-      },
-      "platform_overrides": {
-        "win32": {
-          "command": "uvx.exe"
-        }
       }
     }
   },
@@ -48,7 +48,7 @@
     "config_path": {
       "type": "file",
       "title": "Config File",
-      "description": "Your docs-mcp config.yaml. Download the template from https://github.com/masho1106/docs-mcp/blob/main/config.example.yaml and edit it to add your documentation sources.",
+      "description": "Your docs-mcp config.yaml. Download the template from https://github.com/leCielEtoile/custom-docs-mcp/blob/main/config.example.yaml and edit it to add your documentation sources.",
       "required": true
     },
     "openai_api_key": {
