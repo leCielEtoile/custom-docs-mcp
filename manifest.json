@@ -5,8 +5,8 @@
   "version": "0.1.1",
   "description": "Search official documentation from any Git repository. Ingests Markdown/MDX/RST files and answers questions using hybrid semantic + full-text search.",
   "author": {
-    "name": "masho1106",
-    "url": "https://github.com/masho1106"
+    "name": "leCielEtoile",
+    "url": "https://github.com/leCielEtoile"
   },
   "repository": {
     "type": "git",
